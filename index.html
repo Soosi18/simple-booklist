@@ -8,6 +8,31 @@
     <title>Booklist</title>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="sidebar">
+            <button id="addBtn" class="btn">Add Book</button>
+        </div>
+
+        <div class="content">
+            <dialog>
+                <form>
+                    <label for="title">Title</label>
+                    <input type="text" name="title">
+                    <label for="author">Author</label>
+                    <input type="text" name="author">
+                    <label for="pages">Pages</label>
+                    <input type="number" name="pages" min="1" max="99999">
+                    <label for="status">Completed?</label>
+                    <input type="checkbox" name="status">
+                    <input type="submit" name="submitBtn" id="submitBtn" class="btn">
+                    <button type="button" id="cancelBtn" class="btn">Cancel</button>
+                </form>
+            </dialog>
+        </div>
+        
+        <div class="footer">
+            Copyright@Soosi 2024
+        </div>
+    </div>
 </body>
 </html>
