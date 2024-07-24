@@ -13,24 +13,25 @@ Book.prototype.changeStatus = function(){
 }
 
 let addBook = (title, author, numPages, status) => {
-    bookList.push(new Book(title, author, numPages, status));
+    bookList.push(new Book(title, author, numPages, Boolean(status)));
 }
 
 let displayBooks = () => {
     let content = document.querySelector(".content");
+    content.innerHTML = "";
     for(b of bookList){
-        let card = document.createElement("div");
+        const card = document.createElement("div");
         card.classList.add("card");
 
-        let img = document.createElement("img");
+        const img = document.createElement("img");
         img.src = "../img/test.jpg";
         card.appendChild(img);
 
         for(let i = 0; i < (Object.keys(b).length); i++) {
-            let label = document.createElement("h2");
+            const label = document.createElement("h2");
             label.textContent = Object.keys(b)[i];
             card.appendChild(label);
-            let info = document.createTextNode(b[Object.keys(b)[i]]);
+            const info = document.createTextNode(b[Object.keys(b)[i]]);
             card.appendChild(info);
         }
 
@@ -59,7 +60,11 @@ let addListeners = () => {
 
     submitBtn.addEventListener("click", e => {
         e.preventDefault();
-        console.log("test");
+        let newBook = new FormData(document.querySelector("form"));
+        console.log(newBook.get('status'));
+        addBook(newBook.get('title'), newBook.get('author'), newBook.get('pages'), (newBook.get('status') === "on" ? 1 : 0));
+        displayBooks();
+        toggleDialog();
     });
 }
 
