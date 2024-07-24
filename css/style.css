@@ -2,3 +2,44 @@
     margin: 0;
     padding: 0;
 }
+
+/* Main Container */
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 1fr 200px;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+
+.sidebar {
+}
+
+/* Content */
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-column-start: 2;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    height: 300px;
+    width: 100%;
+}
+
+/* Footer */
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 2;
+}
