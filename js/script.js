@@ -2,6 +2,7 @@ let bookList = [];
 let dialogState = false;
 
 function Book(title, author, numPages, status){
+    this.id = "B" + Math.round((1000 * Math.random(1)))
     this.title = title;
     this.author = author;
     this.numPages = numPages;
@@ -16,25 +17,73 @@ let addBook = (title, author, numPages, status) => {
     bookList.push(new Book(title, author, numPages, Boolean(status)));
 }
 
+let removeBook = id => {
+    bookList = bookList.filter(book => book["id"] != id);
+}
+
+let createCard = book => {
+    let card = document.createElement("div");
+    let id = book["id"];
+    card.classList.add("card");
+
+    const img = document.createElement("img");
+    const info = document.createElement("div");
+    const title = document.createElement('p');
+    const author = document.createElement('p');
+    const pages = document.createElement('p');
+    img.classList.add("book-img");
+    info.classList.add("info");
+    title.classList.add("title");
+    author.classList.add("author");
+    pages.classList.add("pages");
+    imgNum = Math.round(Math.random(1) * 6);
+    img.src = `../img/${imgNum}.jpg`;
+    title.innerText = book["title"];
+    author.innerText = book["author"];
+    pages.innerText = book["numPages"];
+    info.append(title, author, pages);
+
+    const buttons = document.createElement("div");
+    const statusBtn = document.createElement('button');
+    //const likeBtn = document.createElement('button');
+    const delBtn = document.createElement('button');
+    statusBtn.classList.add("status-btn");
+    //likeBtn.classList.add("like-btn");
+    delBtn.classList.add("del-btn");
+    statusBtn.textContent = "Unread";
+    delBtn.textContent = "delete";
+    if(book["status"]){
+        statusBtn.textContent = "Read";
+        statusBtn.classList.toggle("status-read");
+    }
+
+    statusBtn.addEventListener("click", () => {
+        book.changeStatus();
+        statusBtn.classList.toggle("status-read");
+        if (book["status"] === true){
+            statusBtn.textContent = "Read";
+        }
+        else {
+            statusBtn.textContent = "Unread";
+        }
+        
+    });
+
+    delBtn.addEventListener("click", () => {
+        removeBook(id);
+        displayBooks();
+    });
+
+    buttons.append(statusBtn, delBtn);    
+    card.append(img, info, buttons);
+    return card;
+}
+
 let displayBooks = () => {
     let content = document.querySelector(".content");
     content.innerHTML = "";
     for(b of bookList){
-        const card = document.createElement("div");
-        card.classList.add("card");
-
-        const img = document.createElement("img");
-        img.src = "../img/test.jpg";
-        card.appendChild(img);
-
-        for(let i = 0; i < (Object.keys(b).length); i++) {
-            const label = document.createElement("h2");
-            label.textContent = Object.keys(b)[i];
-            card.appendChild(label);
-            const info = document.createTextNode(b[Object.keys(b)[i]]);
-            card.appendChild(info);
-        }
-
+        const card = createCard(b);
         content.appendChild(card);
     }
 }
