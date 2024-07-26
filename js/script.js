@@ -46,6 +46,7 @@ let createCard = book => {
     const statusBtn = document.createElement('button');
     //const likeBtn = document.createElement('button');
     const delBtn = document.createElement('button');
+    buttons.classList.add("buttons");
     statusBtn.classList.add("status-btn");
     //likeBtn.classList.add("like-btn");
     delBtn.classList.add("del-btn");
