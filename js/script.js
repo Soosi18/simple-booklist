@@ -36,8 +36,7 @@ let createCard = book => {
     title.classList.add("title");
     author.classList.add("author");
     pages.classList.add("pages");
-    imgNum = Math.round(Math.random(1) * 6);
-    img.src = `../img/${imgNum}.jpg`;
+    img.src = `../img/1.jpg`;
     title.innerText = book["title"];
     author.innerText = book["author"];
     pages.innerText = book["numPages"];
@@ -65,8 +64,7 @@ let createCard = book => {
         }
         else {
             statusBtn.textContent = "Unread";
-        }
-        
+        } 
     });
 
     delBtn.addEventListener("click", () => {
@@ -110,7 +108,6 @@ let addListeners = () => {
     submitBtn.addEventListener("click", e => {
         e.preventDefault();
         let newBook = new FormData(document.querySelector("form"));
-        console.log(newBook.get('status'));
         addBook(newBook.get('title'), newBook.get('author'), newBook.get('pages'), (newBook.get('status') === "on" ? 1 : 0));
         displayBooks();
         toggleDialog();
