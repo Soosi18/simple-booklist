@@ -23,10 +23,8 @@ let removeBook = id => {
 
 let createAddBookButton = () => {
     const addBookBtn = document.createElement("button");
-    const addImg = document.createElement("img");
-    addImg.src = "../img/plus-thick.svg";
     addBookBtn.id = "big-add-btn";
-    addBookBtn.innerHTML = '<img src="../img/plus-thick.svg" id="big-add-img">';
+    addBookBtn.innerHTML = '<img src="/img/plus-thick.svg" id="big-add-img">';
     return addBookBtn;
     
 }
@@ -46,7 +44,7 @@ let createCard = book => {
     title.classList.add("title");
     author.classList.add("author");
     pages.classList.add("pages");
-    img.src = `../img/1.jpg`;
+    img.src = `/img/1.jpg`;
     title.innerText = book["title"];
     author.innerText = book["author"];
     pages.innerText = `${book["numPages"]} pages`;
@@ -54,11 +52,9 @@ let createCard = book => {
 
     const buttons = document.createElement("div");
     const statusBtn = document.createElement('button');
-    //const likeBtn = document.createElement('button');
     const delBtn = document.createElement('button');
     buttons.classList.add("buttons");
     statusBtn.classList.add("status-btn");
-    //likeBtn.classList.add("like-btn");
     delBtn.classList.add("del-btn");
     statusBtn.textContent = "Unread";
     delBtn.textContent = "Delete";
