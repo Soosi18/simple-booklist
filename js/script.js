@@ -24,7 +24,7 @@ let removeBook = id => {
 let createAddBookButton = () => {
     const addBookBtn = document.createElement("button");
     addBookBtn.id = "big-add-btn";
-    addBookBtn.innerHTML = '<img src="img/plus-thick.SVG" id="big-add-img">';
+    addBookBtn.innerHTML = '<img src="img/plus-thick.svg" id="big-add-img">';
     return addBookBtn;
     
 }
@@ -44,7 +44,7 @@ let createCard = book => {
     title.classList.add("title");
     author.classList.add("author");
     pages.classList.add("pages");
-    img.src = `img/1.JPG`;
+    img.src = `img/1.jpg`;
     title.innerText = book["title"];
     author.innerText = book["author"];
     pages.innerText = `${book["numPages"]} pages`;
