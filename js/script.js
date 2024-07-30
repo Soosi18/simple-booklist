@@ -21,6 +21,16 @@ let removeBook = id => {
     bookList = bookList.filter(book => book["id"] != id);
 }
 
+let createAddBookButton = () => {
+    const addBookBtn = document.createElement("button");
+    const addImg = document.createElement("img");
+    addImg.src = "../img/plus-thick.svg";
+    addBookBtn.id = "big-add-btn";
+    addBookBtn.innerHTML = '<img src="../img/plus-thick.svg" id="big-add-img">';
+    return addBookBtn;
+    
+}
+
 let createCard = book => {
     let card = document.createElement("div");
     let id = book["id"];
@@ -39,7 +49,7 @@ let createCard = book => {
     img.src = `../img/1.jpg`;
     title.innerText = book["title"];
     author.innerText = book["author"];
-    pages.innerText = book["numPages"];
+    pages.innerText = `${book["numPages"]} pages`;
     info.append(title, author, pages);
 
     const buttons = document.createElement("div");
@@ -51,7 +61,7 @@ let createCard = book => {
     //likeBtn.classList.add("like-btn");
     delBtn.classList.add("del-btn");
     statusBtn.textContent = "Unread";
-    delBtn.textContent = "delete";
+    delBtn.textContent = "Delete";
     if(book["status"]){
         statusBtn.textContent = "Read";
         statusBtn.classList.toggle("status-read");
@@ -81,6 +91,7 @@ let createCard = book => {
 let displayBooks = () => {
     let content = document.querySelector(".content");
     content.innerHTML = "";
+    content.appendChild(createAddBookButton());
     for(b of bookList){
         const card = createCard(b);
         content.appendChild(card);
@@ -93,13 +104,22 @@ let toggleDialog = () => {
     dialogState = !dialogState;
 }
 
+let validateInput = (title, author, pages) => {
+    if (title === "" || author === "" || (pages > 9999 || pages < 1)){
+        return 0;
+    }
+    return 1;
+}
+
 let addListeners = () => {
-    const addBtn = document.querySelector("#addBtn");
-    const submitBtn = document.querySelector("#submitBtn");
-    const cancelBtn = document.querySelector("#cancelBtn");
+    const addBtn = document.querySelector("#add-btn");
+    const addBookBtn = document.querySelector("#big-add-btn");
+    const submitBtn = document.querySelector("#submit-btn");
+    const cancelBtn = document.querySelector("#cancel-btn");
     const dialog = document.querySelector("dialog");
 
     addBtn.addEventListener("click", toggleDialog);
+    addBookBtn.addEventListener("click", toggleDialog);
     cancelBtn.addEventListener("click", toggleDialog);
 
     dialog.addEventListener("cancel", e => {
@@ -109,9 +129,19 @@ let addListeners = () => {
     submitBtn.addEventListener("click", e => {
         e.preventDefault();
         let newBook = new FormData(document.querySelector("form"));
-        addBook(newBook.get('title'), newBook.get('author'), newBook.get('pages'), (newBook.get('status') === "on" ? 1 : 0));
-        displayBooks();
-        toggleDialog();
+        let title = newBook.get('title');
+        let author = newBook.get('author');
+        let pages = newBook.get('pages');
+        let status = newBook.get('status');
+
+        if(validateInput(title, author, pages)){
+            addBook(title, author, pages, status === "on" ? 1 : 0);
+            displayBooks();
+            toggleDialog();
+        }
+        else {
+            alert("Please fill in blank fields. \nNote: Number of Pages must be between 1 and 9999");
+        }
     });
 }
 
@@ -120,9 +150,7 @@ window.addEventListener("load", () => {
     addListeners();
 })
 
-addBook("test", "test", 222, false);
-addBook("test", "test", 222, false);
-addBook("test", "test", 222, false);
-addBook("test", "test", 222, false);
-addBook("test", "test", 222, false);
-addBook("test", "test", 222, false);
+addBook("To Kill A Mockingbird", "Harper Lee", 376, false);
+addBook("To Kill A Mockingbird", "Harper Lee", 376, true);
+addBook("To Kill A Mockingbird", "Harper Lee", 376, true);
+addBook("To Kill A Mockingbird", "Harper Lee", 376, false);
