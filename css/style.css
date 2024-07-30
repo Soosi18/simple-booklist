@@ -26,6 +26,10 @@
     padding: 50px 30px;
 }
 
+.header:hover {
+    cursor: pointer;
+}
+
 .btn-row {
     display: flex;
     align-items: center;
@@ -37,6 +41,7 @@
 
 .btn-row:hover {
     background-color: lightgray;
+    cursor: pointer;
 }
 
 #add-btn {
@@ -48,6 +53,10 @@
 
 #add-btn:focus {
     outline: none;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 .header p {
@@ -110,6 +119,10 @@ form {
     background-color: black;
     color: white;
     padding: 10px 15px;
+}
+
+#submit-btn:hover, #cancel-btn:hover {
+    cursor: pointer;
 }
 
 /* Content */
